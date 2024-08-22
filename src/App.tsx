@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 function App() {
-  const [count, setCount] = useState(0)
+    //const name = "Shaurk";
+    const [message, setMessage] = useState('');
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    useEffect(() => {
+        axios.get('http://localhost:8000/api/')
+            .then(response => {
+                setMessage(response.data.message);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
+    return (
+        <div>
+            <h1>Welcome to Brack.it, {message}</h1>
+            <CreateBracketButton />
+        </div>
+    );
+}
+
+function CreateBracketButton() {
+    const [clicked, setClicked] = useState(false);
+    function bracketForm() {
+        setClicked(true);
+        alert("To Make Into Bracket Form");
+    }
+    if (clicked) {
+        return (<button onClick={bracketForm}>Bracket creating...</button>);
+    }
+    else {
+        return (<button onClick={bracketForm}>Create Bracket</button>);
+    }
+    
 }
 
 export default App

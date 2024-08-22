@@ -11,6 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
+django/__pycache__
+django/django
+obj/*
 
 # Editor directories and files
 .vscode/*
